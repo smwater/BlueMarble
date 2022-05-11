@@ -5,6 +5,8 @@ HANDLE s_screens[2];
 int s_backBufferIndex;
 
 bool Renderer_Init(void) {
+	s_screens[s_backBufferIndex];
+
 	// 콘솔 프로그램에 대한 화면 만드는 함수
 	s_screens[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	if (s_screens[0] == INVALID_HANDLE_VALUE) {

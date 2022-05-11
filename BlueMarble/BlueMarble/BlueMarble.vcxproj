@@ -29,6 +29,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Framework\App.h" />
     <ClInclude Include="Framework\Input.h" />
+    <ClInclude Include="Framework\Random.h" />
     <ClInclude Include="Framework\Renderer.h" />
     <ClInclude Include="Framework\Timer.h" />
     <ClInclude Include="Type.h" />

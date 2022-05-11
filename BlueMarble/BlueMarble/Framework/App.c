@@ -11,10 +11,6 @@ bool App_Init(void) {
 		return false;
 	}
 
-	if (false == Input_Init()) {
-		return false;
-	}
-
 	return true;
 }
 
@@ -26,11 +22,19 @@ char str[128];
 void update() {
 	sprintf_s(str, sizeof(str), "현재 입력 없음");
 
-	if (Input_GetKeyDown(VK_UP)) {
+	/*if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+		sprintf_s(str, strlen(str), "왼쪽 키 눌림");
+	}
+
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+		sprintf_s(str, strlen(str), "오른쪽 키 눌림");
+	}*/
+
+	if (Input_GetKey(VK_UP)) {
 		sprintf_s(str, sizeof(str), "위쪽 화살표 눌림");
 	}
 
-	if (Input_GetKeyDown(VK_DOWN)) {
+	if (Input_GetKey(VK_DOWN)) {
 		sprintf_s(str, sizeof(str), "아래쪽 화살표 눌림");
 	}
 
@@ -40,11 +44,13 @@ void update() {
 }
 
 void render(void) {
-	Renderer_DrawText(str, sizeof(str));
+	Renderer_DrawText(str, strlen(str));
 
 	Renderer_Flip();
 
-	Renderer_Cleanup();
+	Renderer_Clear();
+
+	Sleep(100);
 }
 
 int App_Run(void) {

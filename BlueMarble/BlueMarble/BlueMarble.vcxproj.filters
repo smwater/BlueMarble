@@ -42,5 +42,8 @@
     <ClInclude Include="Framework\Input.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Random.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
