@@ -1,13 +1,17 @@
 #include "Renderer.h"
-#include <Windows.h>
 
+HANDLE s_consoleHandle;
 HANDLE s_screens[2];
 int s_backBufferIndex;
 
 bool Renderer_Init(void) {
-	s_screens[s_backBufferIndex];
+	// 1. 콘솔에 대한 핸들을 얻는다.
+	s_consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (INVALID_HANDLE_VALUE == s_consoleHandle) {
+		return false;
+	}
 
-	// 콘솔 프로그램에 대한 화면 만드는 함수
+	// 2. 스크린을 만든다.
 	s_screens[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	if (s_screens[0] == INVALID_HANDLE_VALUE) {
 		return false;
@@ -24,6 +28,7 @@ bool Renderer_Init(void) {
 }
 
 void Renderer_Cleanup(void) {
+	CloseHandle(s_consoleHandle);
 	CloseHandle(s_screens[0]);
 	CloseHandle(s_screens[1]);
 }
@@ -63,8 +68,19 @@ void Renderer_Clear(void) {
 	SetConsoleCursorPosition(consoleHandle, csbi.dwCursorPosition);
 }
 
-void Renderer_DrawText(const char* text, int numberOfText) {
+void Renderer_DrawText(const Text* text, int32 numberOfText, int32 x, int32 y) {
+	// 1. 백 버퍼에 대한 핸들을 가져온다.
 	HANDLE backBuffer = s_screens[s_backBufferIndex];
 
-	WriteConsoleA(backBuffer, text, numberOfText, NULL, NULL);
+	// 2. 커서 위치를 옮겨준다.
+	COORD pos = { x, y };
+	SetConsoleCursorPosition(backBuffer, pos);
+
+	// 3. 백 버퍼에 텍스트를 출력한다.
+	for (int32 i = 0; i < numberOfText; i++) {
+		SetConsoleTextAttribute(backBuffer, text->Attributes);
+		WriteConsole(backBuffer, text, 1, NULL, NULL);
+	}
+
+	SetConsoleTextAttribute(backBuffer, TEXT_COLOR_WHITE);
 }

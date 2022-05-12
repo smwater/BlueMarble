@@ -6,6 +6,8 @@ float s_deltaTime;
 
 bool Timer_Init(void) {
 	s_prevTick = clock();
+
+	return true;
 }
 
 void Timer_Update(void) {
