@@ -5,11 +5,14 @@
 #include "Timer.h"
 #include "Renderer.h"
 #include "Input.h"
+#include "Random.h"
 
 bool App_Init(void) {
 	if (false == Renderer_Init()) {
 		return false;
 	}
+
+	Random_Init();
 
 	return true;
 }
@@ -18,34 +21,26 @@ void processInput(void) {
 	Input_Update();
 }
 
-char str[128];
+char str[2][128];
 void update() {
-	sprintf_s(str, sizeof(str), "현재 입력 없음");
+	int32 minVal = -45;
+	int32 maxVal = 32;
+	int32 randInt = Random_GetNumberFromRange(minVal, maxVal);
+	assert(minVal <= randInt && randInt < maxVal);
 
-	/*if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
-		sprintf_s(str, strlen(str), "왼쪽 키 눌림");
-	}
+	sprintf_s(str[0], sizeof(str[0]), "%d ~ %d 사이의 정수 : %d\n", minVal, maxVal, randInt);
 
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
-		sprintf_s(str, strlen(str), "오른쪽 키 눌림");
-	}*/
+	float fminVal = -12.342f;
+	float fmaxVal = 25.982;
+	float frand = Random_GetFNumberFromRange(fminVal, fmaxVal);
+	assert(fminVal <= frand && frand <= maxVal);
 
-	if (Input_GetKey(VK_UP)) {
-		sprintf_s(str, sizeof(str), "위쪽 화살표 눌림");
-	}
-
-	if (Input_GetKey(VK_DOWN)) {
-		sprintf_s(str, sizeof(str), "아래쪽 화살표 눌림");
-	}
-
-	if (Input_GetKey(VK_LEFT) && Input_GetKey(VK_RIGHT)) {
-		sprintf_s(str, sizeof(str), "왼쪽, 오른쪽 화살표 동시 눌림");
-	}
+	sprintf_s(str[1], sizeof(str[1]), "%f ~ %f 사이의 실수 : %f", fminVal, fmaxVal, frand);
 }
 
 void render(void) {
-	Renderer_DrawText(str, strlen(str));
-
+	Renderer_DrawText(str[0], strlen(str[0]));
+	Renderer_DrawText(str[1], strlen(str[1]));
 	Renderer_Flip();
 
 	Renderer_Clear();

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Type.h"
+#include "Common.h"
 
-bool Random_Init();
+void Random_Init(void);
 
 /// <summary>
 /// 무작위 정수를 가져온다.

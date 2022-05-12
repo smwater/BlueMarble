@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Framework\App.c" />
     <ClCompile Include="Framework\Input.c" />
+    <ClCompile Include="Framework\Random.c" />
     <ClCompile Include="Framework\Renderer.c" />
     <ClCompile Include="Framework\Timer.c" />
     <ClCompile Include="Main.c" />
