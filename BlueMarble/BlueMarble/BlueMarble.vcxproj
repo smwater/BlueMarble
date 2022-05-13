@@ -25,6 +25,7 @@
     <ClCompile Include="Framework\Renderer.c" />
     <ClCompile Include="Framework\Text.c" />
     <ClCompile Include="Framework\Timer.c" />
+    <ClCompile Include="Game\Scene.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +36,7 @@
     <ClInclude Include="Framework\Renderer.h" />
     <ClInclude Include="Framework\Text.h" />
     <ClInclude Include="Framework\Timer.h" />
+    <ClInclude Include="Game\Scene.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
